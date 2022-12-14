@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Template for HTML email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+
+        .form-email {
+            margin-right: 40px;
+            padding: 24px;
+            width: 810px;
+            border: solid 2px #ebecf0;
+            border-radius: 6px;
+        }
+
+        .link {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .link-issue {
+            font-size: 14px;
+            padding-left: 5px;
+            text-decoration: none;
+            color: #0052cc;
+        }
+
+        .view-issue {
+            font-size: 14px;
+            text-decoration: underline;
+            color: #0052cc;
+            margin-bottom: 40px;
+        }
+
+        .issue-name {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.250;
+        }
+
+        .change-name {
+            margin-left: 30px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .properties {
+            border-collapse: separate;
+            border-spacing: 10px;
+            font-size: 14px;
+            width: 800px;
+            margin-top: -10px;
+            margin-left: 20px;
+        }
+
+        .name-properties {
+            width: 150px;
+            max-width: 200px;
+            color: #5e6c84;
+            vertical-align: text-top;
+        }
+
+        .details-properties {
+            vertical-align: text-top;
+        }
+
+        .editNewInline {
+            text-decoration: none;
+            background-color: #ddfade;
+        }
+
+        .editOldInline {
+            text-decoration: line-through;
+            background-color: #fde5e5;
+            color: #555;
+        }
+        .logo-bot{
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="form-email">
+        <div class="link">
+            <img src="cid:logo" th:width="29">
+            <a th:href="${homeUrl}" class="link-issue">Coworking-space /</a>
+            <a th:href="${issueUrl}" class="link-issue">Reservation detail</a>
+        </div>
+        <p class="change-name">
+            Changes on <b
+                th:text="${#temporals.format(timeUpdate, 'dd-MM-yyyy HH:mm:ss')}"></b>
+        </p>
+        <table class="properties">
+            <tr>
+                <td class="name-properties">Customer name :</td>
+                <td class="details-properties" th:text="${customerName}"></td>
+            </tr>
+            <tr>
+                <td class="name-properties">Email :</td>
+                <td class="details-properties" th:text="${email}"></td>
+            </tr>
+            <tr>
+                <td class="name-properties">Phone number :</td>
+                <td class="details-properties" th:text="${phone}"></td>
+            </tr>
+            <tr>
+                <td class="name-properties">Start date :</td>
+                <td class="details-properties" th:text="${startDate}"></td>
+            </tr>
+            <tr>
+                <td class="name-properties">End date :</td>
+                <td class="details-properties" th:text="${endDate}"></td>
+            </tr>
+            <tr>
+                <td class="name-properties">Status :</td>
+                <td class="details-properties">
+                    <span class="editOldInline" th:text="${reservationStatusName.get(0)}"></span>
+                    <span class="editNewInline" th:text="${reservationStatusName.get(1)}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="name-properties">Total :</td>
+                <td class="details-properties" th:text="${total}"></td>
+            </tr>
+
+        </table>
+        <img src="cid:coworking" th:width="200" class="logo-bot">
+    </div>
+</div>
+</body>
+</html>
