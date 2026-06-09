@@ -1,0 +1,50 @@
+name: Simple Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run: echo "Checkout step completed"
+
+      - name: Build status
+        run: echo "Build successful"
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Test status
+        run: echo "Test passed"
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Deploy status
+        run: echo "Deploy successful"
+
+  result:
+    name: Result
+    runs-on: ubuntu-latest
+    needs: [ build, test, deploy ]
+    if: always()
+    steps:
+      - name: Show result
+        run: |
+          if [ "${{ needs.build.result }}" == "success" ] && [ "${{ needs.test.result }}" == "success" ] && [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "Pipeline SUCCESS"
+          else
+            echo "Pipeline FAILED"
+            exit 1
+          fi
